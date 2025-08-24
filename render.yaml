@@ -1,0 +1,20 @@
+databases:
+  - name: skindisease
+    databaseName: skindisease
+    user: skindisease
+
+services:
+  - type: web
+    name: skin-disease-detection
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn SkinDisease.wsgi:application"
+    envVars:
+      - key: postgresql://dbuser:jy3J5llnFtrIycuXKJm8hX42P2YzgjZF@dpg-d2lk0o3uibrs73fbfkrg-a.oregon-postgres.render.com/dbname_hnz5
+        fromDatabase:
+          name: skindisease
+          property: connectionString
+      - key: django-insecure-7#&_8v5j!zq6%k3*+z2@^+z$5#&*z8z$5#&*z8z$5#&*z8z$5#&*
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4
