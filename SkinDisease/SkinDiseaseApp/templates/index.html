@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skin Disease Detection - Home</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Skin Disease Detection System</h1>
+        </div>
+        
+        <div class="main-content">
+            <div class="description">
+                <h2>Welcome to AI-Powered Skin Disease Detection</h2>
+                <p>This application uses Convolutional Neural Networks (CNN) to analyze skin images and provide preliminary disease detection for 9 different types of skin conditions.</p>
+                
+                <div class="alert alert-info">
+                    <h3>Supported Disease Categories:</h3>
+                    <ul>
+                        <li>Actinic Keratosis</li>
+                        <li>Basal Cell Carcinoma</li>
+                        <li>Dermatofibroma</li>
+                        <li>Melanoma</li>
+                        <li>Nevus</li>
+                        <li>Pigmented Benign Keratosis</li>
+                        <li>Seborrheic Keratosis</li>
+                        <li>Squamous Cell Carcinoma</li>
+                        <li>Vascular Lesion</li>
+                    </ul>
+                </div>
+                
+                <div class="alert alert-danger">
+                    <h3>Important Medical Disclaimer:</h3>
+                    <p><strong>This is a research tool and should not replace professional medical diagnosis.</strong> Always consult with a healthcare professional for accurate diagnosis and treatment.</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="{% url 'DiseasePrediction' %}" class="btn">Start Analysis</a>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>&copy; 2024 Skin Disease Detection System. For educational purposes only.</p>
+        </div>
+    </div>
+</body>
+</html>

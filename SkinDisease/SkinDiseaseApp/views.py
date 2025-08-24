@@ -73,6 +73,7 @@ def DiseasePredictionAction(request):
             context = {
                 'result': result,
                 'confidence': f"{confidence:.2f}%",
+                'confidence_value': confidence,
             }
             
             return render(request, 'DiseasePrediction.html', context)

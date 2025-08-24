@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skin Disease Detection</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Skin Disease Detection using CNN</h1>
+        </div>
+        
+        <div class="main-content">
+            <div class="upload-form">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <h3>Upload Skin Image for Analysis</h3>
+                    <div class="form-group">
+                        <label for="image-upload">Select an image file:</label>
+                        <input type="file" id="image-upload" name="t1" accept="image/*" required>
+                    </div>
+                    <button type="submit" class="btn">Analyze Image</button>
+                </form>
+            </div>
+
+            {% if result %}
+            <div class="alert alert-success">
+                <h3>Analysis Results:</h3>
+                <div class="result-box">
+                    <p><strong>Detected Disease:</strong> {{ result }}</p>
+                    <p><strong>Confidence:</strong> {{ confidence }}</p>
+                    
+                    <div class="confidence-bar">
+                        <div class="confidence-fill" style="width: {{ confidence_value|floatformat:0 }}%;"></div>
+                    </div>
+                    
+                    <div class="alert alert-info">
+                        <h4>About {{ result }}:</h4>
+                        <p>This is an AI-powered analysis. Please consult with a healthcare professional for accurate diagnosis and treatment.</p>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if error %}
+            <div class="alert alert-danger">
+                <h3>Error:</h3>
+                <p>{{ error }}</p>
+            </div>
+            {% endif %}
+        </div>
+        
+        <div class="footer">
+            <p>&copy; 2024 Skin Disease Detection System. For educational purposes only.</p>
+        </div>
+    </div>
+</body>
+</html>

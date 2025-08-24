@@ -8,7 +8,7 @@ services:
     name: skin-disease-detection
     env: python
     buildCommand: "./build.sh"
-    startCommand: "gunicorn SkinDisease.wsgi:application"
+    startCommand: "gunicorn SkinDisease.wsgi:application --bind 0.0.0.0:$PORT"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
@@ -20,3 +20,5 @@ services:
         value: 4
       - key: DEBUG
         value: "False"
+      - key: ALLOWED_HOSTS
+        value: ".onrender.com"
