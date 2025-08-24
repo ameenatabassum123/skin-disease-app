@@ -13,7 +13,7 @@
 - [x] `render.yaml` is configured correctly
 - [x] `build.sh` is executable and contains proper commands
 - [x] `requirements.txt` includes all necessary dependencies
-- [x] `runtime.txt` specifies Python version
+- [x] `runtime.txt` specifies Python version (3.11.7)
 - [x] `.gitignore` excludes unnecessary files
 
 ### ✅ Settings Configuration
@@ -23,15 +23,16 @@
 - [x] Security settings are enabled for production
 - [x] Allowed hosts are configured properly
 
-### ✅ Dependencies
+### ✅ Dependencies (Updated for Python 3.11)
 - [x] Django 3.2.13
-- [x] TensorFlow 2.6.0
-- [x] Keras 2.6.0
-- [x] OpenCV 4.5.5.64
-- [x] Gunicorn 20.1.0
-- [x] Whitenoise 5.3.0
-- [x] psycopg2-binary 2.9.3
-- [x] dj-database-url 0.5.0
+- [x] TensorFlow 2.15.0
+- [x] Keras 2.15.0
+- [x] NumPy 2.0.0
+- [x] OpenCV 4.8.1.78
+- [x] Gunicorn 21.2.0
+- [x] Whitenoise 6.6.0
+- [x] psycopg2-binary 2.9.7
+- [x] dj-database-url 2.1.0
 
 ## Render Deployment Steps
 
@@ -66,6 +67,7 @@ The following environment variables will be set automatically by render.yaml:
 
 ### 4. Build Process
 The build script will automatically:
+- [x] Upgrade pip to latest version
 - [x] Install Python dependencies
 - [x] Create necessary directories
 - [x] Collect static files
@@ -83,9 +85,13 @@ The build script will automatically:
 
 ### Common Issues and Solutions
 
-#### Build Failures
+#### Build Failures - Python Version Issues
+- **Issue**: Package compatibility with Python version
+- **Solution**: Updated to Python 3.11.7 and compatible package versions
+
+#### TensorFlow/ML Library Issues
 - **Issue**: TensorFlow installation fails
-- **Solution**: Check Python version compatibility (3.9.16)
+- **Solution**: Using TensorFlow 2.15.0 which is compatible with Python 3.11
 
 #### Database Connection Issues
 - **Issue**: Cannot connect to database
@@ -102,6 +108,21 @@ The build script will automatically:
 #### Memory Issues
 - **Issue**: Application crashes due to memory
 - **Solution**: Consider upgrading to paid tier for more memory
+
+## Alternative Solutions
+
+### If Build Still Fails
+1. Try using `requirements-alt.txt` instead:
+   ```bash
+   # In build.sh, change:
+   pip install -r SkinDisease/requirements-alt.txt
+   ```
+
+2. Use Python 3.10 if 3.11 has issues:
+   ```txt
+   # In runtime.txt:
+   python-3.10.12
+   ```
 
 ## Post-Deployment
 
@@ -129,3 +150,4 @@ The build script will automatically:
 - Database will sleep after 90 days of inactivity (free tier)
 - Consider upgrading to paid tier for production use
 - Always test thoroughly before deploying to production
+- Python 3.11.7 provides good stability and compatibility
