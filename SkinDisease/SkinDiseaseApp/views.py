@@ -12,11 +12,11 @@ from sklearn.metrics import recall_score
 from sklearn.metrics import f1_score
 from sklearn.metrics import accuracy_score
 from tensorflow.keras.utils import to_categorical
-from keras.layers import  MaxPooling2D
-from keras.layers import Dense, Dropout, Activation, Flatten
-from keras.layers import Convolution2D
-from keras.models import Sequential, Model
-from keras.models import model_from_json
+from tensorflow.keras.layers import  MaxPooling2D
+from tensorflow.keras.layers import Dense, Dropout, Activation, Flatten
+from tensorflow.keras.layers import Conv2D
+from tensorflow.keras.models import Sequential, Model
+from tensorflow.keras.models import model_from_json
 import pickle
 import os
 import matplotlib.pyplot as plt
@@ -41,7 +41,6 @@ def DiseasePredictionAction(request):
                 classifier = model_from_json(loaded_model_json)
             json_file.close()    
             classifier.load_weights(os.path.join(settings.BASE_DIR, "model", "model_weights.h5"))
-            classifier._make_predict_function() 
             
             # Process the uploaded image
             myfile = request.FILES['t1']
@@ -119,19 +118,18 @@ def runCNN(request):
                     classifier = model_from_json(loaded_model_json)
                 json_file.close()    
                 classifier.load_weights(os.path.join(settings.BASE_DIR, "model", "model_weights.h5"))
-                classifier._make_predict_function()       
             else:
                 classifier = Sequential()
                 #defining convolution neural network layer with 32 layers to filter dataset features 32 times and then max pooling will collect all important features
-                classifier.add(Convolution2D(32, 3, 3, input_shape = (32, 32, 3), activation = 'relu'))
+                classifier.add(Conv2D(32, (3, 3), input_shape = (32, 32, 3), activation = 'relu'))
                 #pooling layer to collect filtered features
                 classifier.add(MaxPooling2D(pool_size = (2, 2)))
                 #defining another layer with 32 filters
-                classifier.add(Convolution2D(32, 3, 3, activation = 'relu'))
+                classifier.add(Conv2D(32, (3, 3), activation = 'relu'))
                 classifier.add(MaxPooling2D(pool_size = (2, 2)))
                 classifier.add(Flatten())
-                classifier.add(Dense(output_dim = 256, activation = 'relu'))
-                classifier.add(Dense(output_dim = y_train.shape[1], activation = 'softmax'))
+                classifier.add(Dense(256, activation = 'relu'))
+                classifier.add(Dense(y_train.shape[1], activation = 'softmax'))
                 #now compiling the model
                 classifier.compile(optimizer = 'adam', loss = 'categorical_crossentropy', metrics = ['accuracy'])
                 #now training CNN model with X and Y array data
