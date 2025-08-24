@@ -5,8 +5,8 @@ set -o errexit
 # Upgrade pip to latest version
 pip install --upgrade pip
 
-# Install dependencies
-pip install -r SkinDisease/requirements.txt
+# Install conservative dependencies first
+pip install -r SkinDisease/requirements-conservative.txt
 
 # Create necessary directories
 mkdir -p SkinDisease/staticfiles
